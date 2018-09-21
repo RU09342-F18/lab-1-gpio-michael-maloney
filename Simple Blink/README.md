@@ -14,7 +14,7 @@ Before you actually begin this lab, take the time to mess around with the simula
 <iframe width="560" height="360" src="http://everycircuit.com/embed/5180823226810368" frameborder="0"></iframe>
 
 ## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise.
+Both files uploaded run primarily the same code with minor differences because of the separate processors.  The codes is designed to blink an LED with a 50% duty cycle.  The codes first begin with their specific include statements and main functions.  The watchdog timers are then paused to stop the code from continuously looping through the main function.  The MSP430 code includes a redundant P1SEL and P1SEL2 call because they default to I/O anyway, but was included for practice.  After, the directions of the LED pins are set to output and an infinite while loop is created.  The loop cycles the pin outputs between on and off by use of XOR logic.  A delay is then added to make the on/off slow enough that it is visible.
 
 ## Extra Work
 Since this is so basic, there are a few things which might be interesting to implement.
