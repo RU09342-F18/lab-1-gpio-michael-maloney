@@ -1,18 +1,8 @@
 # Button Blink
-Now that you have looked at blinking the LED from some built in delay, but what if we wanted to control the state of the LED by a button? You may think "Why would I need a Microcontroller to perform the job of a switch?". And that is where you come in. The bare minimum for this part of the lab is to essentially replicate a switch with your development board.
-
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP(FILL IN THE PROCESSOR YOU ARE USING)
 
 ## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise. Make sure you talk about how your button is configured (momentary or continuous. Normally open or closed. Does the button press indicate when the LED should be on or off.)
+As a step up from the last two tasks, this one invloves an output and an input.  The programs provided will turn on an LED only after a button is pressed.
 
-## Extra Work
-What can we do to make this a little bit more worthy of needing a microcontroller.
+The two programs in this folder are relatively similar, but the program created for the MSP430g2553 is much less effient than the one created for the FR2311.  However, the code was not changed as both programs still work and the G2553 code can be used for future reference if necessary.
 
-### Button Based Speed Control
-Much like the UART controlled speed, what if you could cycle between speeds based on a button press? The speed could progress through a cycle of "Off-Slow-Medium-Fast" looping back when you hit the end.
-
-### Color Change
-What if upon a button press, the LED which was blinking changed. Some of the development boards contain two LEDs, so you could swap between a Red and a Green LED.
+Both codes start with their include statements, main functions, and paused watchdog timers.  The G2553 code then goes through PxSEL to set I/O on the pins, PxDIR to set directions. The output pins are then all set to 0 in the G2553 to ensure the code doesn't happen to start with them on.  The FR2311 code is from TI and does not include any PxSEL code because of its redundancy.  Instead, only directions of inputs and outputs are set.  Then some code (" PM5CTL0 &= ~LOCKLPM5; ") is added from TI that makes no sense to me yet, but was left just in case it is important or necessary.  Next in the FR2311 code is selecting the pull-up resistors properly for the button.  Without this code added to this board the button does not work properly.  Both codes implement resistor logic, but it is used more effectively in the FR2311 code because of my better understanding of it after researching it for a while.  Both codes then go on to have infinite loops where an if statement is used.  The PxIN ANDed with whichever BIT the input pin is to create a complete value because of the high impedance values in PxIN.  If the button is pressed, the LED will XOR on or off depending on its state.  In the G2553 code a weird switching of pull-down resistors on the LED pins is used instead of on the button, making it less effective than the FR2311 method of pull-up LED usage.  A delay is then added.
